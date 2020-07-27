@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'soru.dart';
+import 'package:training_quiz_uygulamasi/soruHavuzu.dart';
 
 main() => runApp(Quiz());
 
@@ -26,17 +26,26 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> sonucList = [];
-  List<Soru> soruBankasi = [
-    Soru(soruText: "İtalya'nın başkenti Madrid'tir.", soruCevap: false),
-    Soru(
-        soruText: "Apple firmasının geliştirdiği web tarayıcı safaridir.",
-        soruCevap: true),
-    Soru(
-        soruText: "Flutter facebook tarafından geliştiriliyor.",
-        soruCevap: false),
-  ];
 
-  int soruIndex = 0;
+  void soruCevapla(bool kullaniciCevap) {
+    setState(() {
+      bool dogruCevap = soruHavuzu.soruCevapGetir();
+      if (dogruCevap == kullaniciCevap) {
+        sonucList.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        sonucList.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
+      soruHavuzu.sonrakiSoruGetir();
+    });
+  }
+
+  SoruHavuzu soruHavuzu = SoruHavuzu();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +58,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                soruBankasi[soruIndex].soruText,
+                soruHavuzu.soruTextGetir(),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
@@ -63,21 +72,7 @@ class _QuizPageState extends State<QuizPage> {
             textColor: Colors.white,
             color: Colors.green,
             onPressed: () {
-              setState(() {
-                bool dogruCevap = soruBankasi[soruIndex].soruCevap;
-                if (dogruCevap == true) {
-                  sonucList.add(Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
-                } else {
-                  sonucList.add(Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                }
-                soruIndex++;
-              });
+              soruCevapla(true);
             },
             child: Text(
               "DOĞRU",
@@ -92,21 +87,7 @@ class _QuizPageState extends State<QuizPage> {
             textColor: Colors.white,
             color: Colors.red,
             onPressed: () {
-              setState(() {
-                bool dogruCevap = soruBankasi[soruIndex].soruCevap;
-                if (dogruCevap == false) {
-                  sonucList.add(Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ));
-                } else {
-                  sonucList.add(Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                }
-                soruIndex++;
-              });
+              soruCevapla(false);
             },
             child: Text(
               "YANLIŞ",
