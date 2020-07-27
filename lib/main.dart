@@ -25,6 +25,11 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> sonucList = [];
+  List<String> sorular = [
+    "İtalya'nın başkenti Madrid'tir.",
+    "Apple firmasının geliştirdiği web tarayıcı safaridir.",
+  ];
+  int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                "Soru Alanı",
+                sorular[soruIndex],
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
@@ -52,6 +57,7 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.green,
             onPressed: () {
               setState(() {
+                soruIndex++;
                 sonucList.add(Icon(
                   Icons.check,
                   color: Colors.green,
@@ -72,6 +78,7 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.red,
             onPressed: () {
               setState(() {
+                soruIndex++;
                 sonucList.add(Icon(
                   Icons.close,
                   color: Colors.red,
