@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'soru.dart';
 
 main() => runApp(Quiz());
 
@@ -25,12 +26,16 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> sonucList = [];
-  List<String> sorular = [
-    "İtalya'nın başkenti Madrid'tir.",
-    "Apple firmasının geliştirdiği web tarayıcı safaridir.",
-    "Flutter facebook tarafından geliştiriliyor."
+  List<Soru> soruBankasi = [
+    Soru(soruText: "İtalya'nın başkenti Madrid'tir.", soruCevap: false),
+    Soru(
+        soruText: "Apple firmasının geliştirdiği web tarayıcı safaridir.",
+        soruCevap: true),
+    Soru(
+        soruText: "Flutter facebook tarafından geliştiriliyor.",
+        soruCevap: false),
   ];
-  List<bool> cevaplar = [false, true, false];
+
   int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                sorular[soruIndex],
+                soruBankasi[soruIndex].soruText,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
@@ -59,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.green,
             onPressed: () {
               setState(() {
-                bool dogruCevap = cevaplar[soruIndex];
+                bool dogruCevap = soruBankasi[soruIndex].soruCevap;
                 if (dogruCevap == true) {
                   sonucList.add(Icon(
                     Icons.check,
@@ -88,7 +93,7 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.red,
             onPressed: () {
               setState(() {
-                bool dogruCevap = cevaplar[soruIndex];
+                bool dogruCevap = soruBankasi[soruIndex].soruCevap;
                 if (dogruCevap == false) {
                   sonucList.add(Icon(
                     Icons.check,
