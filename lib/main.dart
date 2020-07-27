@@ -24,6 +24,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> sonucList = [];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,7 +50,14 @@ class _QuizPageState extends State<QuizPage> {
           child: FlatButton(
             textColor: Colors.white,
             color: Colors.green,
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                sonucList.add(Icon(
+                  Icons.check,
+                  color: Colors.green,
+                ));
+              });
+            },
             child: Text(
               "DOĞRU",
               style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -62,7 +70,14 @@ class _QuizPageState extends State<QuizPage> {
           child: FlatButton(
             textColor: Colors.white,
             color: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                sonucList.add(Icon(
+                  Icons.close,
+                  color: Colors.red,
+                ));
+              });
+            },
             child: Text(
               "YANLIŞ",
               style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -70,16 +85,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         )),
         Row(
-          children: <Widget>[
-            Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-            Icon(
-              Icons.close,
-              color: Colors.red,
-            )
-          ],
+          children: sonucList,
         )
       ],
     );
