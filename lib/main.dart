@@ -28,7 +28,9 @@ class _QuizPageState extends State<QuizPage> {
   List<String> sorular = [
     "İtalya'nın başkenti Madrid'tir.",
     "Apple firmasının geliştirdiği web tarayıcı safaridir.",
+    "Flutter facebook tarafından geliştiriliyor."
   ];
+  List<bool> cevaplar = [false, true, false];
   int soruIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -57,11 +59,19 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.green,
             onPressed: () {
               setState(() {
+                bool dogruCevap = cevaplar[soruIndex];
+                if (dogruCevap == true) {
+                  sonucList.add(Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ));
+                } else {
+                  sonucList.add(Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ));
+                }
                 soruIndex++;
-                sonucList.add(Icon(
-                  Icons.check,
-                  color: Colors.green,
-                ));
               });
             },
             child: Text(
@@ -78,11 +88,19 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.red,
             onPressed: () {
               setState(() {
+                bool dogruCevap = cevaplar[soruIndex];
+                if (dogruCevap == false) {
+                  sonucList.add(Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ));
+                } else {
+                  sonucList.add(Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ));
+                }
                 soruIndex++;
-                sonucList.add(Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ));
               });
             },
             child: Text(
